@@ -5,7 +5,7 @@ This is a compiled set of instructions and tools wrapped in Docker image to fetc
 AlienDalvik files on Sailfish phones.
 
 Most of the existing tools assume `adb` as transport. In Sailfish it's a bit tricky so I replaced it with Rsync. 
-Please not that Rsync is run in completely insecure manner, so don't leave it running in public unprotected networks.
+Please note that Rsync is run in completely insecure manner, so don't leave it running in public unprotected networks.
 
 Overview of the steps performed by the scripts:
  * fetch via rsync `/opt/alien/system/{framework,app,priv-app}`
@@ -27,7 +27,7 @@ Instructions
 * Create minimalistic Rsync config
 
 ```bash
-echo > /home/nemo/rsyncd-alien.conf << 'EOF'
+cat > ~/rsyncd-alien.conf << 'EOF'
 [alien]
  path=/opt/alien
  readonly=false
@@ -39,17 +39,19 @@ EOF
 * run daemon in foreground with logging
 
 ```bash
-rsync --daemon --no-detach --verbose --config=/home/nemo/rsyncd-alien.conf --log-file=/dev/stdout
+rsync --daemon --no-detach --verbose --config=~/rsyncd-alien.conf --log-file=/dev/stdout
 ```
 
 **Build and execute docker image**
 
-Checkout this repo. Make sure docker is available on you machine and running
+Clone this repo from GitHub.
+
+Make sure docker is available on you machine and running
 * https://www.docker.com/docker-windows
 * https://www.docker.com/docker-mac
 
 ```bash
-docker build -t haystack . && docker run --env SAILFISH=<PHONE_IP_ADDRESS> haystack
+docker build -t haystack . && docker run --rm -ti --env SAILFISH=<PHONE_IP_ADDRESS> haystack
 ```
 
 **Final steps**

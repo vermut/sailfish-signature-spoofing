@@ -20,8 +20,6 @@ echo [**] 3. Apply the patch
 echo [**] 4. Merge back the results
 mv -v /hook_core/* /sailfish/framework/
 
-exit 0
-
 echo [**] 5. Upload results back
 rsync -va --delete-after -b --backup-dir=../framework.pre_haystack  \
     /sailfish/framework/                                            \
