@@ -27,7 +27,7 @@ Instructions
 * Create minimalistic Rsync config
 
 ```bash
-cat > ~/rsyncd-alien.conf << 'EOF'
+cat > /root/rsyncd-alien.conf << 'EOF'
 [alien]
  path=/opt/alien
  readonly=false
@@ -39,7 +39,7 @@ EOF
 * run daemon in foreground with logging
 
 ```bash
-rsync --daemon --no-detach --verbose --config=~/rsyncd-alien.conf --log-file=/dev/stdout
+rsync --daemon --no-detach --verbose --config=/root/rsyncd-alien.conf --log-file=/dev/stdout
 ```
 
 **Build and execute docker image**
