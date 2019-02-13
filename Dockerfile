@@ -1,6 +1,6 @@
 FROM openjdk
 
-RUN apt update && apt -y install git rsync zip libc++-dev
+RUN apt update && apt -y install git rsync zip libc++-dev squashfs-tools
 RUN git clone https://github.com/Lanchon/haystack
 RUN git clone https://github.com/aureljared/simple-deodexer
 
