@@ -9,9 +9,10 @@ Please note that Rsync is run in completely insecure manner, so don't leave it r
 
 Overview of the steps performed by the scripts:
  * fetch via rsync `/opt/alien/system/{framework,app,priv-app}`
- * deodex using [simple-deodexer](https://github.com/aureljared/simple-deodexer)
+ * deodex using [simple-deodexer](https://github.com/aureljared/simple-deodexer) on non LXC system (android 4.4)
+ * deodex using [vdexExtractor](https://github.com/anestisb/vdexExtractor) on LXC system (android 8.1)
  * apply `hook` and `core` patches from [haystack](https://github.com/Lanchon/haystack)
- * push back changed files, saving backups in `/opt/alien/system/{framework,app,priv-app}.pre_haystack`
+ * push back changed files, saving backups in `/opt/alien/system/{framework,app,priv-app}.pre_haystack` (nonLXC/android 4.4) or `/opt/alien/system.img.pre.haystack` (LXC/android 8.1)
 
 Instructions
 ===
@@ -55,8 +56,12 @@ Make sure docker is available on you machine and running
 * https://www.docker.com/docker-windows
 * https://www.docker.com/docker-mac
 
+Make sure to pass `--env SAILFISH=` with the IP of the phone
+
+Make sure to pass `--env LXC=0` or `--env LXC=1` to choose between android 4.4 (non LXC) and android 8.1 (LXC)
+
 ```bash
-docker build -t haystack . && docker run --rm -ti --env SAILFISH=<PHONE_IP_ADDRESS> haystack
+docker build -t haystack . && docker run --rm -ti --env SAILFISH=<PHONE_IP_ADDRESS> --env LXC=0/1 haystack
 ```
 
 **Final steps**
