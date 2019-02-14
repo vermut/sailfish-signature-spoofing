@@ -11,16 +11,10 @@ if [ "${LXC}" -eq 1 ]; then
         rsync://${SAILFISH}/alien/system.img \
         /tmp/system.img
   
-    echo [**] 1.1 Make backup of system.img via RSYNC
-    rsync -va \
-        /tmp/system.img \
-        rsync://${SAILFISH}/alien/system.img.pre.haystack
-  
-  
-    echo [**] 1.2 unpack the squashfs
+    echo [**] 1.1 unpack the squashfs
     cd /tmp && unsquashfs system.img
   
-    echo [**] 1.3 get files to patch
+    echo [**] 1.2 get files to patch
     mkdir /sailfish
     rsync -va /tmp/squashfs-root/${SYSTEM_PATH}/{framework,app,priv-app} \
       /sailfish
@@ -78,7 +72,7 @@ if [ "${LXC}" -eq 1 ]; then
     cd /tmp && mksquashfs squashfs-root system.img.haystack
 
     echo [**] 5. Upload results back
-    rsync -va --delete-before \
+    rsync -va --delete-after -b --suffix=".pre_haystack" \
         /tmp/system.img.haystack \
         rsync://${SAILFISH}/alien/system.img
 
