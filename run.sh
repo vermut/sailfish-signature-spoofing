@@ -69,7 +69,7 @@ if [ "${LXC}" -eq 1 ]; then
 #        /tmp/squashfs-root/${SYSTEM_PATH}/priv-app/
 
     echo [**] 5.2 rebuild squashfs
-    cd /tmp && mksquashfs squashfs-root system.img.haystack
+    cd /tmp && mksquashfs squashfs-root system.img.haystack -comp lz4 -Xhc -noappend -no-exports -no-duplicates -no-fragments
 
     echo [**] 5. Upload results back
     rsync -va --delete-after -b --suffix=".pre_haystack" \
