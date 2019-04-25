@@ -73,6 +73,7 @@ if [ "${LXC}" -eq 1 ]; then
 
     echo [**] 5. Upload results back
     rsync -va --delete-after -b --suffix=".pre_haystack" \
+        --backup-dir=../../home/nemo \
         /tmp/system.img.haystack \
         rsync://${SAILFISH}/alien/system.img
 
