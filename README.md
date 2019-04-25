@@ -56,6 +56,12 @@ Make sure docker is available on you machine and running
 * https://www.docker.com/docker-windows
 * https://www.docker.com/docker-mac
 
+Make sure you checked out all the code from the gut submodules, e.g.:
+
+```bash
+git submodule update --init --recursive
+```
+
 Make sure to pass `--env SAILFISH=` with the IP of the phone
 
 Make sure to pass `--env LXC=0` or `--env LXC=1` to choose between android 4.4 (non LXC) and android 8.1 (LXC)

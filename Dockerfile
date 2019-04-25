@@ -1,4 +1,4 @@
-FROM openjdk
+FROM openjdk:8-slim
 
 RUN apt update && apt -y install git rsync zip libc++-dev squashfs-tools make gcc zlib1g-dev
 
