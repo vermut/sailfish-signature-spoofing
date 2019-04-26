@@ -3,6 +3,33 @@ set -e
 SYSTEM_PATH=system
 API_VERSION=19
 
+echo [**] 0. Validate the environment
+if [[ -z "${SAILFISH}" ]]; then
+    echo "ERROR: You need to supply SAILFISH environment var with your phone's IP address!"
+    exit 1
+fi
+
+rsync \
+    rsync://${SAILFISH}/alien/system/etc/aliendalvik-release \
+    aliendalvik-release || true
+
+if [[ ! -f aliendalvik-release ]]; then
+    echo "Cannot find /opt/alient/system. Maybe you are on LXC environment?.. Let's check!"
+    rsync \
+        rsync://${SAILFISH}/alien/system.img \
+        system.img || true
+
+    if [[ -f system.img ]]; then
+        echo "Seems like you are using this tool for older Android version. Please use yeoldegrove/sailfish-signature-spoofing-lxc"
+        echo "https://github.com/yeoldegrove/sailfish-signature-spoofing-lxc"
+    fi
+    if [[ ! -f system.img ]]; then
+        echo "ERROR: No idea what's going on. Better stop now."
+    fi
+
+    exit 1
+fi
+
 echo [**] 1. Fetch files via RSYNC
 rsync -va --delete \
     rsync://${SAILFISH}/alien/${SYSTEM_PATH}/framework \
