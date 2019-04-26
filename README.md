@@ -1,4 +1,5 @@
 SailfishOS Android Signature Spoofing for XA2 devices
+===
 (or other devices using LXC containers for the android runtime)
 ===
 
@@ -13,6 +14,7 @@ Overview of the steps performed by the scripts:
  * deodex using [vdexExtractor](https://github.com/anestisb/vdexExtractor)
  * apply `hook` and `core` patches from [haystack](https://github.com/Lanchon/haystack)
  * push back changed files, saving backups in `/home/nemo/system.img.pre.haystack`
+
 
 Instructions
 ===
