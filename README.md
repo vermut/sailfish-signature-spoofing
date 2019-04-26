@@ -12,7 +12,7 @@ Overview of the steps performed by the scripts:
  * deodex using [simple-deodexer](https://github.com/aureljared/simple-deodexer) on non LXC system (android 4.4)
  * deodex using [vdexExtractor](https://github.com/anestisb/vdexExtractor) on LXC system (android 8.1)
  * apply `hook` and `core` patches from [haystack](https://github.com/Lanchon/haystack)
- * push back changed files, saving backups in `/opt/alien/system/{framework,app,priv-app}.pre_haystack` (nonLXC/android 4.4) or `/home/nemo/system.img.pre.haystack` (LXC/android 8.1)
+ * push back changed files, saving backups in `/opt/alien/system/{framework,app,priv-app}.pre_haystack` (nonLXC/android 4.4) or `/opt/alien/system.img.pre.haystack` (LXC/android 8.1)
 
 Instructions
 ===
