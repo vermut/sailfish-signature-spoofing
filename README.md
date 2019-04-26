@@ -1,4 +1,6 @@
-SailfishOS Android Signature Spoofing
+SailfishOS Android Signature Spoofing for XA2 devices
+===
+(or other devices using LXC containers for the android runtime)
 ===
 
 This is a compiled set of instructions and tools wrapped in Docker image to fetch, deodex, patch and upload back 
@@ -9,10 +11,10 @@ Please note that Rsync is run in completely insecure manner, so don't leave it r
 
 Overview of the steps performed by the scripts:
  * fetch via rsync `/opt/alien/system/{framework,app,priv-app}`
- * deodex using [simple-deodexer](https://github.com/aureljared/simple-deodexer) on non LXC system (android 4.4)
- * deodex using [vdexExtractor](https://github.com/anestisb/vdexExtractor) on LXC system (android 8.1)
+ * deodex using [vdexExtractor](https://github.com/anestisb/vdexExtractor)
  * apply `hook` and `core` patches from [haystack](https://github.com/Lanchon/haystack)
- * push back changed files, saving backups in `/opt/alien/system/{framework,app,priv-app}.pre_haystack` (nonLXC/android 4.4) or `/opt/alien/system.img.pre.haystack` (LXC/android 8.1)
+ * push back changed files, saving backups in `/home/nemo/system.img.pre.haystack`
+
 
 Instructions
 ===
@@ -48,7 +50,7 @@ rsync --daemon --no-detach --verbose --config=/root/rsyncd-alien.conf --log-file
 iptables -A connman-INPUT -i wlan0 -p tcp -m tcp --dport 873 -j ACCEPT
 ```
 
-**Build and execute docker image**
+**Execute docker image**
 
 Clone this repo from GitHub.
 
@@ -64,10 +66,8 @@ git submodule update --init --recursive
 
 Make sure to pass `--env SAILFISH=` with the IP of the phone
 
-Make sure to pass `--env LXC=0` or `--env LXC=1` to choose between android 4.4 (non LXC) and android 8.1 (LXC)
-
 ```bash
-docker build -t haystack . && docker run --rm -ti --env SAILFISH=<PHONE_IP_ADDRESS> --env LXC=0/1 haystack
+docker run --rm -ti --env SAILFISH=<PHONE_IP_ADDRESS> yeoldegrove/sailfish-signature-spoofing-lxc
 ```
 
 **Final steps**
@@ -91,4 +91,19 @@ cp -r --reply=yes -v app.pre_haystack/* app/
 cp -r --reply=yes -v priv-app.pre_haystack/* priv-app/
 ```
 
+**building the docker image yourself**
 
+Make sure you checked out all the code from the gut submodules, e.g.:
+
+```bash
+git submodule update --init --recursive
+```
+
+```bash
+docker build -t sailfish-signature-spoofing-lxc
+```
+
+Kudos
+===
+The code is based on a fork from the excelent work of @vermut here:
+ * [sailfish-signature-spoofing](https://github.com/vermut/sailfish-signature-spoofing)
