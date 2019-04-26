@@ -42,16 +42,14 @@ EOF
 rsync --daemon --no-detach --verbose --config=/root/rsyncd-alien.conf --log-file=/dev/stdout
 ```
 
-**Build and execute docker image**
-
-Clone this repo from GitHub.
+**Execute docker image**
 
 Make sure docker is available on you machine and running
 * https://www.docker.com/docker-windows
 * https://www.docker.com/docker-mac
 
 ```bash
-docker build -t haystack . && docker run --rm -ti --env SAILFISH=<PHONE_IP_ADDRESS> haystack
+docker run --rm -ti --env SAILFISH=<PHONE_IP_ADDRESS> vermut/sailfish-signature-spoofing
 ```
 
 **Final steps**
