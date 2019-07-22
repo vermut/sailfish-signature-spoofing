@@ -1,6 +1,14 @@
-SailfishOS Android Signature Spoofing
+SailfishOS Android Signature Spoofing for Jolla/Xperia X
 ===
 
+Compatibility
+===
+This only works with older Sailfish devices that uses the Android 4.4 runtime, e.g. the "Xperia X".
+
+If you are using an newer Sailfish device, like the "Xperia XA2" which uses the Android 8.x runtime and LXC containers, please checkout this: [sailfish-signature-spoofing-lxc](https://github.com/yeoldegrove/sailfish-signature-spoofing-lxc)
+
+How this works
+===
 This is a compiled set of instructions and tools wrapped in Docker image to fetch, deodex, patch and upload back 
 AlienDalvik files on Sailfish phones.
 
