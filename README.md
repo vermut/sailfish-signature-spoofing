@@ -44,8 +44,12 @@ cat > /root/rsyncd-alien.conf << 'EOF'
 EOF
 ```
 
-* run daemon in foreground with logging
+* make sure your firewall accepts connections on port 873
+```bash
+iptables -A connman-INPUT -i wlan0 -p tcp -m tcp --dport 873 -j ACCEPT
+```
 
+* run daemon in foreground with logging
 ```bash
 rsync --daemon --no-detach --verbose --config=/root/rsyncd-alien.conf --log-file=/dev/stdout
 ```
